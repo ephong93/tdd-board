@@ -1,6 +1,9 @@
 import { useState } from 'react'
 
-const CommentForm = () => {
+const CommentForm = ({
+  postId,
+  onSubmit
+}) => {
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
 
@@ -26,7 +29,17 @@ const CommentForm = () => {
         onChange={onChangeContent}
         value={content}
       />
-      <button>Submit</button>
+      <button
+        onClick={() => 
+          onSubmit({
+            postId,
+            author,
+            content
+          }
+        )}
+      >
+        Submit
+      </button>
     </div>
   )
 }

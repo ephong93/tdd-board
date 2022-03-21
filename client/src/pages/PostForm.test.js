@@ -17,16 +17,21 @@ describe('PostForm', () => {
   }
   it('renders inputs and labels', () => {
     const { titleInput, contentInput } = setup()
-    expect(titleInput).toBeTruthy()
-    expect(contentInput).toBeTruthy()
+    expect(titleInput).toBeInTheDocument()
+    expect(contentInput).toBeInTheDocument()
   })
   it('renders submit button', () => {
     const { submitButton } = setup()
-    expect(submitButton).toBeTruthy()
+    expect(submitButton).toBeInTheDocument()
   })
   it('calls onSubmit if submit button is clicked', () => {
     const { submitButton } = setup()
     userEvent.click(submitButton)
     expect(onSubmit).toBeCalled()
+  })
+  it('changes title when user types', () => {
+    const { titleInput } = setup()
+    userEvent.type(titleInput, 'Dumpling')
+    expect(titleInput.value).toBe('Dumpling')
   })
 })

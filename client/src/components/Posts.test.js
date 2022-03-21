@@ -15,9 +15,14 @@ const samplePosts = [
 ]
 
 describe('Posts', () => {
+  it('renders headings', () => {
+    render(<Posts />)
+    screen.getByRole('columnheader', {name: /title/i})
+    screen.getByRole('columnheader', {name: /author/i})
+  })
   it('renders title, author', () => {
     render(<Posts posts={samplePosts} />)
-    screen.getByText("Let's go yakiniku")
-    screen.getByText('Yamashita')
+    screen.getByRole('cell', {name: "Let's go yakiniku"})
+    screen.getByRole('cell', {name: 'Yamashita'})
   })
 })

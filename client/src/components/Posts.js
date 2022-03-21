@@ -1,20 +1,28 @@
 const Posts = ({ posts }) => {
   return (
     <div>
-      <ul>
-        {
-          posts.map(post => (
-            <li key={post.id}>
-              <span>
-                {post.title}
-              </span>
-              <span>
-                {post.author}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            posts?.map(post => (
+              <tr key={post.id}>
+                <td>
+                  {post.title}
+                </td>
+                <td>
+                  {post.author}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   )
 }

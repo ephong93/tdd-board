@@ -34,4 +34,9 @@ describe('PostForm', () => {
     userEvent.type(titleInput, 'Dumpling')
     expect(titleInput.value).toBe('Dumpling')
   })
+  it('changes content when user types', () => {
+    const { contentInput } = setup()
+    userEvent.type(contentInput, 'Noodles')
+    expect(contentInput.value).toBe('Noodles')
+  })
 })

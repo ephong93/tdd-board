@@ -10,6 +10,10 @@ const PostForm = ({
     setTitle(e.target.value)
   }
 
+  const onChangeContent = (e) => {
+    setContent(e.target.value)
+  }
+
   return (
     <div>
       <label htmlFor='title'>
@@ -19,8 +23,16 @@ const PostForm = ({
         id='title'
         type='text'
         onChange={onChangeTitle}
+        value={title}
       />
-      <label htmlFor='content'>Content</label><textarea id='content' />
+      <label htmlFor='content'>
+        Content
+      </label>
+      <textarea
+        id='content'
+        onChange={onChangeContent}
+        value={content}
+      />
       <button
         onClick={() => onSubmit({ title, content })}
       >

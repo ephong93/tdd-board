@@ -1,5 +1,6 @@
 import Posts from './Posts'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 const samplePosts = [
   {
@@ -14,6 +15,14 @@ const samplePosts = [
   }
 ]
 
+const mockHistory = {
+  push: jest.fn()
+}
+
+jest.mock('react-router-dom', () => ({
+  useHistory: () => mockHistory
+}))
+
 describe('Posts', () => {
   it('renders headings', () => {
     render(<Posts />)
@@ -24,5 +33,11 @@ describe('Posts', () => {
     render(<Posts posts={samplePosts} />)
     screen.getByRole('cell', {name: "Let's go yakiniku"})
     screen.getByRole('cell', {name: 'Yamashita'})
+  })
+  it('redirect to /posts/{id} when clicking a post', () => {
+    render(<Posts posts={samplePosts} />)
+    const row = screen.getByRole('row', {name: /yamashita/i})
+    userEvent.click(row)
+    expect(mockHistory.push).toBeCalledWith('/posts/1')
   })
 })

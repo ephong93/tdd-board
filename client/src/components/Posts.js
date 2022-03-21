@@ -1,4 +1,8 @@
+import { useHistory } from 'react-router-dom'
+
 const Posts = ({ posts }) => {
+  const history = useHistory()
+
   return (
     <div>
       <table>
@@ -11,7 +15,10 @@ const Posts = ({ posts }) => {
         <tbody>
           {
             posts?.map(post => (
-              <tr key={post.id}>
+              <tr
+                key={post.id}
+                onClick={() => history.push(`/posts/${post.id}`)}
+              >
                 <td>
                   {post.title}
                 </td>

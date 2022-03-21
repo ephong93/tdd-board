@@ -20,6 +20,21 @@ const Post = ({ id }) => {
           <div>{post.title}</div>
           <div>{post.author}</div>
           <div>{post.content}</div>
+          <h1>Comments</h1>
+          <ul>
+            {
+              post.comments.map(comment => (
+                <li key={comment.id}>
+                  <div>
+                    {comment.author}
+                  </div>
+                  <div>
+                    {comment.content}
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
         </>
         :
         <div>No Data</div>

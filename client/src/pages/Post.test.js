@@ -57,13 +57,13 @@ describe('Post', () => {
 
   
   it('renders title, author and content', async () => {
-    render(<Post id={1} />)
+    render(<Post />)
     await screen.findByText('Sample Title')
     await screen.findByText('Sample Author')
     await screen.findByText('Sample Content')
   })
   it('renders comments', async () => {
-    render(<Post id={1} />)
+    render(<Post />)
     await screen.findByRole('heading', {name: /comments/i})
     await screen.findByText('Roy')
     await screen.findByText('Nice to meet you')
@@ -71,12 +71,12 @@ describe('Post', () => {
     await screen.findByText('Good morning')
   })
   it('renders CommentForm', async () => {
-    render(<Post id={1} />)
+    render(<Post />)
     await screen.findByRole('textbox', {name: /author/i})
     await screen.findByRole('textbox', {name: /content/i})
   })
   it('update comments after onSubmit is called', async () => {
-    render(<Post id={1} />)
+    render(<Post />)
     const authorInput = await screen.findByRole('textbox', {name: /author/i})
     const contentInput = await screen.findByRole('textbox', {name: /content/i})
     const submitButton = await screen.findByRole('button', {name: /submit/i})
@@ -84,11 +84,10 @@ describe('Post', () => {
     userEvent.type(contentInput, 'New content')
     userEvent.click(submitButton)
     await screen.findByText('New author')
-    
-
   }) 
+  // NEED TO FIX
   it('renders no data', async () => {
-    render(<Post id={2} />)
+    render(<Post />)
     await screen.findByText(/no data/i)
   })
 })

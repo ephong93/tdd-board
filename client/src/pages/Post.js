@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useState } from 'react'
 import axios from 'axios'
+import CommentForm from '../components/CommentForm'
 
 const Post = ({ id }) => {
   const [post, setPost] = useState()
@@ -21,6 +22,7 @@ const Post = ({ id }) => {
           <div>{post.author}</div>
           <div>{post.content}</div>
           <h1>Comments</h1>
+          <CommentForm />
           <ul>
             {
               post.comments.map(comment => (

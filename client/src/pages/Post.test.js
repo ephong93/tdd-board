@@ -39,6 +39,11 @@ describe('Post', () => {
     await screen.findByText('Chen')
     await screen.findByText('Good morning')
   })
+  it('renders CommentForm', async () => {
+    render(<Post id={1} />)
+    await screen.findByRole('textbox', {name: /author/i})
+    await screen.findByRole('textbox', {name: /content/i})
+  })
   it('renders no data', async () => {
     render(<Post id={2} />)
     await screen.findByText(/no data/i)

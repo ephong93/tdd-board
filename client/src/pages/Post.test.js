@@ -4,6 +4,12 @@ import MockAdapter from 'axios-mock-adapter'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 
+jest.mock('react-router', () => ({
+  useParams: () => ({
+    id: 1
+  })
+}))
+
 describe('Post', () => {
   const mockApi = new MockAdapter(axios, {delayResponse: 200})
   mockApi.onGet('/posts/1').reply(200, {
@@ -48,6 +54,7 @@ describe('Post', () => {
       }
     ]
   })
+
   
   it('renders title, author and content', async () => {
     render(<Post id={1} />)
@@ -84,5 +91,4 @@ describe('Post', () => {
     render(<Post id={2} />)
     await screen.findByText(/no data/i)
   })
-  
 })

@@ -1,9 +1,11 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import CommentForm from '../components/CommentForm'
+import { useParams } from 'react-router'
 
-const Post = ({ id }) => {
+const Post = () => {
   const [post, setPost] = useState()
+  const { id } = useParams()
 
   const fetchPost = async (id) => {
     const response = await axios.get(`/posts/${id}`)

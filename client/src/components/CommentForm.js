@@ -26,6 +26,7 @@ const CommentForm = () => {
         onChange={onChangeContent}
         value={content}
       />
+      <button>Submit</button>
     </div>
   )
 }

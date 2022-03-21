@@ -3,10 +3,11 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('CommentForm', () => {
-  it('renders text inputs for author and content', () => {
+  it('renders text inputs for author and content and submit button', () => {
     render(<CommentForm />)
     screen.getByRole('textbox', {name: /author/i})
     screen.getByRole('textbox', {name: /content/i})
+    screen.getByRole('button', {name: /submit/i})
   })
   it('changes values of author and content when user types', () => {
     render(<CommentForm />)

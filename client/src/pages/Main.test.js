@@ -1,8 +1,9 @@
 import Main from './Main'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 describe('Main', () => {
-  it('test', () => {
+  it('renders post button', () => {
     render(<Main />)
+    screen.getByRole('button', {name: /post/i})
   })
 })

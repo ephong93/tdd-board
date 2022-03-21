@@ -21,4 +21,8 @@ describe('Main', () => {
     userEvent.click(postButton)
     expect(mockHistory.push).toBeCalledWith('/post-form')
   })
+  it('renders heading', () => {
+    render(<Main />)
+    screen.getByRole('heading', {name: /posts/i})
+  })
 })

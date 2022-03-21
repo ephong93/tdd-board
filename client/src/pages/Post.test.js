@@ -11,11 +11,16 @@ describe('Post', () => {
     author: 'Sample Author',
     content: 'Sample Content'
   })
+  mockApi.onGet('/pists/2').reply(404)
 
   it('renders title, author and content', async () => {
     render(<Post id={1}/>)
     await screen.findByText('Sample Title')
     await screen.findByText('Sample Author')
     await screen.findByText('Sample Content')
+  })
+  it('renders no data', async () => {
+    render(<Post id={2} />)
+    await screen.findByText(/no data/i)
   })
 })

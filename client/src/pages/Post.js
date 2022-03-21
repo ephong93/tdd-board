@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const Post = () => {
+const Post = ({ id }) => {
   const [post, setPost] = useState()
   
   const fetchPost = async () => {
-    const response = await axios.get('/posts/1')
+    const response = await axios.get(`/posts/${id}`)
     setPost(response.data)
   }
 
@@ -15,9 +15,15 @@ const Post = () => {
 
   return (
     <div>
-      <div>{post?.title}</div>
-      <div>{post?.author}</div>
-      <div>{post?.content}</div>
+      { post ? 
+        <>
+          <div>{post.title}</div>
+          <div>{post.author}</div>
+          <div>{post.content}</div>
+        </>
+        :
+        <div>No Data</div>
+      }
     </div>
   )
 }

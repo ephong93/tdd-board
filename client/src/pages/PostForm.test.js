@@ -24,11 +24,6 @@ describe('PostForm', () => {
     const { submitButton } = setup()
     expect(submitButton).toBeInTheDocument()
   })
-  it('calls onSubmit if submit button is clicked', () => {
-    const { submitButton } = setup()
-    userEvent.click(submitButton)
-    expect(onSubmit).toBeCalled()
-  })
   it('changes title when user types', () => {
     const { titleInput } = setup()
     userEvent.type(titleInput, 'Dumpling')
@@ -38,5 +33,15 @@ describe('PostForm', () => {
     const { contentInput } = setup()
     userEvent.type(contentInput, 'Noodles')
     expect(contentInput.value).toBe('Noodles')
+  })
+  it('calls onSubmit if submit button is clicked', () => {
+    const { titleInput, contentInput, submitButton } = setup()
+    userEvent.type(titleInput, 'Dumpling')
+    userEvent.type(contentInput, 'Noodles')
+    userEvent.click(submitButton)
+    expect(onSubmit).toBeCalledWith({
+      title: 'Dumpling',
+      content: 'Noodles'
+    })
   })
 })

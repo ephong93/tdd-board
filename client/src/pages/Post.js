@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import axios from 'axios'
 
 const Post = ({ id }) => {
   const [post, setPost] = useState()
-  
-  const fetchPost = async () => {
+
+  const fetchPost = useCallback(async (id) => {
     const response = await axios.get(`/posts/${id}`)
     setPost(response.data)
-  }
+  }, [])
 
   useEffect(() => {
-    fetchPost()
-  }, [])
+    fetchPost(id)
+  }, [id, fetchPost])
 
   return (
     <div>

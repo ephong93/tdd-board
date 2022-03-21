@@ -10,6 +10,14 @@ const Post = ({ id }) => {
     setPost(response.data)
   }, [])
 
+  const createComment = async (comment) => {
+    const response = await axios.post(`/posts/${id}/comments`, {
+      ...comment,
+      post_id: id
+    })
+    setPost(response.data)
+  }
+
   useEffect(() => {
     fetchPost(id)
   }, [id, fetchPost])
@@ -22,7 +30,7 @@ const Post = ({ id }) => {
           <div>{post.author}</div>
           <div>{post.content}</div>
           <h1>Comments</h1>
-          <CommentForm />
+          <CommentForm onSubmit={createComment} />
           <ul>
             {
               post.comments.map(comment => (

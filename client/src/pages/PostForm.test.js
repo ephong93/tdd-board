@@ -16,18 +16,17 @@ describe('PostForm', () => {
     }
   }
   it('renders inputs and labels', () => {
-    render(<PostForm />)
-    screen.getByRole('textbox', {name: /title/i})
-    screen.getByRole('textbox', {name: /content/i})
+    const { titleInput, contentInput } = setup()
+    expect(titleInput).toBeTruthy()
+    expect(contentInput).toBeTruthy()
   })
   it('renders submit button', () => {
-    render(<PostForm />)
-    screen.getByRole('button', {name: /submit/i})
+    const { submitButton } = setup()
+    expect(submitButton).toBeTruthy()
   })
   it('calls onSubmit if submit button is clicked', () => {
-    render(<PostForm onSubmit={onSubmit} />)
-    const button = screen.getByRole('button', {name: /submit/i})
-    userEvent.click(button)
+    const { submitButton } = setup()
+    userEvent.click(submitButton)
     expect(onSubmit).toBeCalled()
   })
 })

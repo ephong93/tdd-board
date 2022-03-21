@@ -1,6 +1,21 @@
-const Posts = () => {
+const Posts = ({ posts }) => {
   return (
-    <div />
+    <div>
+      <ul>
+        {
+          posts.map(post => (
+            <li key={post.id}>
+              <span>
+                {post.title}
+              </span>
+              <span>
+                {post.author}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   )
 }
 

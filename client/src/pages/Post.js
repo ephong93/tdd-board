@@ -5,10 +5,10 @@ import CommentForm from '../components/CommentForm'
 const Post = ({ id }) => {
   const [post, setPost] = useState()
 
-  const fetchPost = useCallback(async (id) => {
+  const fetchPost = async (id) => {
     const response = await axios.get(`/posts/${id}`)
     setPost(response.data)
-  }, [])
+  }
 
   const createComment = async (comment) => {
     const response = await axios.post(`/posts/${id}/comments`, {
@@ -20,7 +20,7 @@ const Post = ({ id }) => {
 
   useEffect(() => {
     fetchPost(id)
-  }, [id, fetchPost])
+  }, [id])
 
   return (
     <div>

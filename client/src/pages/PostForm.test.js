@@ -27,6 +27,11 @@ describe('PostForm', () => {
     const { submitButton } = setup()
     expect(submitButton).toBeInTheDocument()
   })
+  it('changes author when user types', () => {
+    const { authorInput } = setup()
+    userEvent.type(authorInput, 'Chopsticks')
+    expect(authorInput.value).toBe('Chopsticks')
+  })
   it('changes title when user types', () => {
     const { titleInput } = setup()
     userEvent.type(titleInput, 'Dumpling')

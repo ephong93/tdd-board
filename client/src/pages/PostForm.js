@@ -3,8 +3,13 @@ import { useState } from 'react'
 const PostForm = ({
   onSubmit
 }) => {
+  const [author, setAuthor] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+
+  const onChangeAuthor = (e) => {
+    setAuthor(e.target.value)
+  }
   
   const onChangeTitle = (e) => {
     setTitle(e.target.value)
@@ -22,6 +27,8 @@ const PostForm = ({
       <input
         id='author'
         type='text'
+        onChange={onChangeAuthor}
+        value={author}
       />
       <label htmlFor='title'>
         Title

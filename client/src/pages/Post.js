@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Post = () => {
   const [post, setPost] = useState()
+  
+  const fetchPost = async () => {
+    const response = await axios.get('/posts/1')
+    setPost(response.data)
+  }
 
   useEffect(() => {
-    setPost({
-      title: 'Sample Title',
-      author: 'Sample Author',
-      content: 'Sample Content'
-    })
+    fetchPost()
   }, [])
+
   return (
     <div>
       <div>{post?.title}</div>

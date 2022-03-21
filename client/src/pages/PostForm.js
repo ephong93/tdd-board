@@ -16,6 +16,13 @@ const PostForm = ({
 
   return (
     <div>
+      <label htmlFor='author'>
+        Author
+      </label>
+      <input
+        id='author'
+        type='text'
+      />
       <label htmlFor='title'>
         Title
       </label>

@@ -6,17 +6,20 @@ describe('PostForm', () => {
   const onSubmit = jest.fn()
   const setup = () => {
     render(<PostForm onSubmit={onSubmit} />)
+    const authorInput = screen.getByRole('textbox', {name: /author/i})
     const titleInput = screen.getByRole('textbox', {name: /title/i})
     const contentInput = screen.getByRole('textbox', {name: /content/i})
     const submitButton = screen.getByRole('button', {name: /submit/i})
     return {
+      authorInput,
       titleInput,
       contentInput,
       submitButton
     }
   }
   it('renders inputs and labels', () => {
-    const { titleInput, contentInput } = setup()
+    const { authorInput, titleInput, contentInput } = setup()
+    expect(authorInput).toBeInTheDocument()
     expect(titleInput).toBeInTheDocument()
     expect(contentInput).toBeInTheDocument()
   })

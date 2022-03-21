@@ -43,11 +43,13 @@ describe('PostForm', () => {
     expect(contentInput.value).toBe('Noodles')
   })
   it('calls onSubmit if submit button is clicked', () => {
-    const { titleInput, contentInput, submitButton } = setup()
+    const { authorInput, titleInput, contentInput, submitButton } = setup()
+    userEvent.type(authorInput, 'Chopsticks')
     userEvent.type(titleInput, 'Dumpling')
     userEvent.type(contentInput, 'Noodles')
     userEvent.click(submitButton)
     expect(onSubmit).toBeCalledWith({
+      author: 'Chopsticks',
       title: 'Dumpling',
       content: 'Noodles'
     })

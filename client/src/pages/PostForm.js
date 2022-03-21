@@ -48,7 +48,13 @@ const PostForm = ({
         value={content}
       />
       <button
-        onClick={() => onSubmit({ title, content })}
+        onClick={() => 
+          onSubmit({
+            author,
+            title,
+            content
+          }
+        )}
       >
         Submit
       </button>

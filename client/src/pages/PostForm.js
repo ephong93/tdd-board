@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
-const PostForm = ({
-  onSubmit
-}) => {
+const PostForm = () => {
   const [author, setAuthor] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+
+  const history = useHistory()
 
   const onChangeAuthor = (e) => {
     setAuthor(e.target.value)
@@ -17,6 +19,17 @@ const PostForm = ({
 
   const onChangeContent = (e) => {
     setContent(e.target.value)
+  }
+
+  const onSubmit = async () => {
+    const response = await axios.post('/posts', {
+      author,
+      title,
+      content
+    })
+    if (response.status === 200) {
+      history.push('/')
+    }
   }
 
   return (
@@ -48,13 +61,7 @@ const PostForm = ({
         value={content}
       />
       <button
-        onClick={() => 
-          onSubmit({
-            author,
-            title,
-            content
-          }
-        )}
+        onClick={onSubmit}
       >
         Submit
       </button>

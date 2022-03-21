@@ -1,11 +1,22 @@
 import PostForm from './PostForm'
-import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { render, screen, waitFor } from '@testing-library/react'
+
+const mockPost = jest.fn()
+const mockHistory = {
+  push: jest.fn()
+}
+
+jest.mock('react-router-dom', () => ({
+  useHistory: () => mockHistory
+}))
+jest.mock('axios', () => ({
+  post: (...args) => mockPost(...args)
+}))
 
 describe('PostForm', () => {
-  const onSubmit = jest.fn()
   const setup = () => {
-    render(<PostForm onSubmit={onSubmit} />)
+    render(<PostForm />)
     const authorInput = screen.getByRole('textbox', {name: /author/i})
     const titleInput = screen.getByRole('textbox', {name: /title/i})
     const contentInput = screen.getByRole('textbox', {name: /content/i})
@@ -17,6 +28,12 @@ describe('PostForm', () => {
       submitButton
     }
   }
+
+  beforeEach(() => {
+    mockPost.mockResolvedValue({
+      status: 200
+    })
+  })
   it('renders inputs and labels', () => {
     const { authorInput, titleInput, contentInput } = setup()
     expect(authorInput).toBeInTheDocument()
@@ -42,16 +59,18 @@ describe('PostForm', () => {
     userEvent.type(contentInput, 'Noodles')
     expect(contentInput.value).toBe('Noodles')
   })
-  it('calls onSubmit if submit button is clicked', () => {
+  it('calls onSubmit if submit button is clicked', async () => {
     const { authorInput, titleInput, contentInput, submitButton } = setup()
     userEvent.type(authorInput, 'Chopsticks')
     userEvent.type(titleInput, 'Dumpling')
     userEvent.type(contentInput, 'Noodles')
     userEvent.click(submitButton)
-    expect(onSubmit).toBeCalledWith({
+
+    expect(mockPost).toBeCalledWith('/posts', {
       author: 'Chopsticks',
       title: 'Dumpling',
       content: 'Noodles'
     })
+    await waitFor(() => expect(mockHistory.push).toBeCalledWith('/'))
   })
 })

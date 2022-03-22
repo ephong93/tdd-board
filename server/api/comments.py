@@ -14,3 +14,10 @@ def create_comment():
         'comment': comment.to_dict()
     }
 
+@bp.route('/comments', methods=['GET'])
+def get_comment():
+    comments = [comment.to_dict() for comment in Comment.query.all()]
+    return {
+        'comments': comments
+    }
+

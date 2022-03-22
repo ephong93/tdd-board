@@ -1,7 +1,7 @@
 import os
 import pytest
 import tempfile
-from server import create_app
+from server import create_app, db
 
 @pytest.fixture
 def app():
@@ -11,7 +11,11 @@ def app():
     }
     app = create_app(config=TEST_CONFIG)
     with app.app_context():
+        db.create_all()
         yield app
+
+    os.close(db_fp)
+    os.unlink(db_path)
 
 
 @pytest.fixture

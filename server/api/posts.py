@@ -13,3 +13,10 @@ def create_post():
     return {
         'post': post.to_dict()
     }
+
+@bp.route('/posts', methods=['GET'])
+def get_posts():
+    posts = [post.to_dict() for post in Post.query.all()]
+    return {
+        'posts': posts
+    }

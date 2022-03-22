@@ -7,6 +7,7 @@ class TestPosts:
         })
         assert response.status_code == 200
         post = response.get_json()['post']
+        assert post['id'] == 1
         assert post['author'] == 'test author'
         assert post['title'] == 'test title'
         assert post['content'] == 'test content'
@@ -22,6 +23,7 @@ class TestPosts:
         posts = response.get_json()['posts']
         assert len(posts) == 1
         post = posts[0]
+        assert post['id'] == 1
         assert post['author'] == 'test author'
         assert post['title'] == 'test title'
         assert post['content'] == 'test content'

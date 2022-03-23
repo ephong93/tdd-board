@@ -6,55 +6,48 @@ import { render, screen } from '@testing-library/react'
 
 jest.mock('react-router', () => ({
   useParams: () => ({
-    id: 1
+    postId: 1
   })
 }))
 
+const sampleComments = [
+  {
+    id: 1,
+    author: 'Roy',
+    content: 'Nice to meet you'
+  },
+  {
+    id: 2,
+    author: 'Chen',
+    content: 'Good morning'
+  },
+  
+]
+
+const samplePost = {
+  id: 1,
+  title: 'Sample Title',
+  author: 'Sample Author',
+  content: 'Sample Content'
+}
+
+
 describe('Post', () => {
   const mockApi = new MockAdapter(axios, {delayResponse: 200})
-  mockApi.onGet('/posts/1').reply(200, {
-    id: 1,
-    title: 'Sample Title',
-    author: 'Sample Author',
-    content: 'Sample Content',
-    comments: [
-      {
-        id: 1,
-        author: 'Roy',
-        content: 'Nice to meet you'
-      },
-      {
-        id: 2,
-        author: 'Chen',
-        content: 'Good morning'
-      }
-    ]
+  mockApi.onGet('/api/posts/1').reply(200, {
+    post: samplePost
   })
-  mockApi.onGet('/posts/2').reply(404)
-  mockApi.onPost('/posts/1/comments').reply(200, {
-    id: 1,
-    title: 'Sample Title',
-    author: 'Sample Author',
-    content: 'Sample Content',
-    comments: [
-      {
-        id: 1,
-        author: 'Roy',
-        content: 'Nice to meet you'
-      },
-      {
-        id: 2,
-        author: 'Chen',
-        content: 'Good morning'
-      },
-      {
-        id: 3,
-        author: 'New author',
-        content: 'New content'
-      }
-    ]
+  mockApi.onGet('/api/posts/1/comments').reply(200, {
+    comments: sampleComments
   })
-
+  mockApi.onPost('/api/comments').reply(200, {
+    comments: [...sampleComments, {
+      id: 3,
+      author: 'New author',
+      content: 'New content'
+    }]
+  })
+  mockApi.onGet('/api/posts/2').reply(404)
   
   it('renders title, author and content', async () => {
     render(<Post />)
@@ -77,6 +70,7 @@ describe('Post', () => {
   })
   it('update comments after onSubmit is called', async () => {
     render(<Post />)
+    expect(screen.queryByText('New author')).toBeFalsy()
     const authorInput = await screen.findByRole('textbox', {name: /author/i})
     const contentInput = await screen.findByRole('textbox', {name: /content/i})
     const submitButton = await screen.findByRole('button', {name: /submit/i})

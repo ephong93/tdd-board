@@ -21,6 +21,13 @@ def get_posts():
         'posts': posts
     }
 
+@bp.route('/posts/<int:post_id>', methods=['GET'])
+def get_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    return {
+        'post': post.to_dict()
+    }
+
 @bp.route('/posts/<int:post_id>/comments', methods=['GET'])
 def get_comments_of_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()

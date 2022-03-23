@@ -10,8 +10,9 @@ def create_comment():
     comment.from_dict(data)
     db.session.add(comment)
     db.session.commit()
+    comments = [comment.to_dict() for comment in Comment.query.filter_by(post_id=comment.post_id)]
     return {
-        'comment': comment.to_dict()
+        'comments': comments
     }
 
 @bp.route('/comments', methods=['GET'])

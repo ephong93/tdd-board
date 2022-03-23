@@ -27,7 +27,9 @@ describe('Main', () => {
   ]
 
   const mockApi = new MockAdapter(axios, {delayResponse: 200})
-  mockApi.onGet('/posts').reply(200, samplePosts)
+  mockApi.onGet('/api/posts').reply(200, {
+    posts: samplePosts
+  })
   
   it('renders post button', () => {
     render(<Main />)

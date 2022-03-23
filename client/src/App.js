@@ -1,13 +1,13 @@
-import { BrowserRouter as Router, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Main, PostForm, Post } from './pages'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Router exact path='/' component={Main} />
-        <Router path='/post-form' component={PostForm} />
-        <Router path='/posts/:postId' component={Post} />
+        <Route path='/' element={<Main />} />
+        <Route path='/post-form' element={<PostForm />} />
+        <Route path='/posts/:postId' element={<Post />} />
       </Routes>
     </Router>
   );

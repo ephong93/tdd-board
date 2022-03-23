@@ -64,7 +64,7 @@ describe('PostForm', () => {
     userEvent.type(contentInput, 'Noodles')
     userEvent.click(submitButton)
 
-    expect(mockPost).toBeCalledWith('/posts', {
+    expect(mockPost).toBeCalledWith('/api/posts', {
       author: 'Chopsticks',
       title: 'Dumpling',
       content: 'Noodles'

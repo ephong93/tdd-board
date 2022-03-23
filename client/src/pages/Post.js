@@ -5,24 +5,31 @@ import { useParams } from 'react-router'
 
 const Post = () => {
   const [post, setPost] = useState()
-  const { id } = useParams()
+  const [comments, setComments] = useState([])
+  const { postId } = useParams()
 
-  const fetchPost = async (id) => {
-    const response = await axios.get(`/posts/${id}`)
-    setPost(response.data)
+  const fetchPost = async (postId) => {
+    const response = await axios.get(`/api/posts/${postId}`)
+    setPost(response.data.post)
+  }
+
+  const fetchComments = async (postId) => {
+    const response = await axios.get(`/api/posts/${postId}/comments`)
+    setComments(response.data.comments)
   }
 
   const createComment = async (comment) => {
-    const response = await axios.post(`/posts/${id}/comments`, {
+    const response = await axios.post(`/api/comments`, {
       ...comment,
-      post_id: id
+      post_id: postId
     })
-    setPost(response.data)
+    setComments(response.data.comments)
   }
 
   useEffect(() => {
-    fetchPost(id)
-  }, [id])
+    fetchPost(postId)
+    fetchComments(postId)
+  }, [postId])
 
   return (
     <div>
@@ -35,7 +42,7 @@ const Post = () => {
           <CommentForm onSubmit={createComment} />
           <ul>
             {
-              post.comments.map(comment => (
+              comments.map(comment => (
                 <li key={comment.id}>
                   <div>
                     {comment.author}

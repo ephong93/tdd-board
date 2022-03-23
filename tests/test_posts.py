@@ -18,6 +18,21 @@ class TestPosts:
             'title': 'test title',
             'content': 'test content'
         })
+        response = client.get('/api/posts/1')
+        assert response.status_code == 200
+        post = response.get_json()['post']
+        assert post['id'] == 1
+        assert post['author'] == 'test author'
+        assert post['title'] == 'test title'
+        assert post['content'] == 'test content'
+
+
+    def test_get_posts(self, client):
+        client.post('/api/posts', json={
+            'author': 'test author',
+            'title': 'test title',
+            'content': 'test content'
+        })
         response = client.get('/api/posts')
         assert response.status_code == 200
         posts = response.get_json()['posts']

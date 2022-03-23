@@ -22,7 +22,7 @@ const PostForm = () => {
   }
 
   const onSubmit = async () => {
-    const response = await axios.post('/posts', {
+    const response = await axios.post('/api/posts', {
       author,
       title,
       content

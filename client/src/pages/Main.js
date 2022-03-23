@@ -9,9 +9,9 @@ const Main = () => {
   const isMounted = useRef(false)
 
   const fetchPosts = async () => {
-    const response = await axios.get('/posts')
+    const response = await axios.get('/api/posts')
     if (isMounted.current) {
-      setPosts(response.data)
+      setPosts(response.data.posts)
     }
   }
 
@@ -28,7 +28,7 @@ const Main = () => {
       <h1>Posts</h1>
       <Posts posts={posts} />
       <button
-        onClick={navigate('/post-form')}
+        onClick={() => navigate('/post-form')}
       >
         Post
       </button>

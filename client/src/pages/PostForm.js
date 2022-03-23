@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const PostForm = () => {
@@ -7,7 +7,7 @@ const PostForm = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const onChangeAuthor = (e) => {
     setAuthor(e.target.value)
@@ -28,7 +28,7 @@ const PostForm = () => {
       content
     })
     if (response.status === 200) {
-      history.push('/')
+      navigate('/')
     }
   }
 

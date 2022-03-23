@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Posts from '../components/Posts'
 
 const Main = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const [posts, setPosts] = useState([])
   const isMounted = useRef(false)
 
@@ -28,7 +28,7 @@ const Main = () => {
       <h1>Posts</h1>
       <Posts posts={posts} />
       <button
-        onClick={history.push('/post-form')}
+        onClick={navigate('/post-form')}
       >
         Post
       </button>

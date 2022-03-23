@@ -3,12 +3,10 @@ import userEvent from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react'
 
 const mockPost = jest.fn()
-const mockHistory = {
-  push: jest.fn()
-}
+const mockNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({
-  useHistory: () => mockHistory
+  useNavigate: () => mockNavigate
 }))
 jest.mock('axios', () => ({
   post: (...args) => mockPost(...args)
@@ -71,6 +69,6 @@ describe('PostForm', () => {
       title: 'Dumpling',
       content: 'Noodles'
     })
-    await waitFor(() => expect(mockHistory.push).toBeCalledWith('/'))
+    await waitFor(() => expect(mockNavigate).toBeCalledWith('/'))
   })
 })

@@ -15,12 +15,10 @@ const samplePosts = [
   }
 ]
 
-const mockHistory = {
-  push: jest.fn()
-}
-
+const mockNavigate = jest.fn()
+  
 jest.mock('react-router-dom', () => ({
-  useHistory: () => mockHistory
+  useNavigate: () => mockNavigate
 }))
 
 describe('Posts', () => {
@@ -38,6 +36,6 @@ describe('Posts', () => {
     render(<Posts posts={samplePosts} />)
     const row = screen.getByRole('row', {name: /yamashita/i})
     userEvent.click(row)
-    expect(mockHistory.push).toBeCalledWith('/posts/1')
+    expect(mockNavigate).toBeCalledWith('/posts/1')
   })
 })

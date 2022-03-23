@@ -1,7 +1,7 @@
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Posts = ({ posts }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -17,7 +17,7 @@ const Posts = ({ posts }) => {
             posts?.map(post => (
               <tr
                 key={post.id}
-                onClick={() => history.push(`/posts/${post.id}`)}
+                onClick={() => navigate(`/posts/${post.id}`)}
               >
                 <td>
                   {post.title}

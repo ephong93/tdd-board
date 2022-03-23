@@ -4,12 +4,10 @@ import MockAdapter from 'axios-mock-adapter'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 
-const mockHistory = {
-  push: jest.fn()
-}
+const mockNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({
-  useHistory: () => mockHistory
+  useNavigate: () => mockNavigate 
 }))
 
 describe('Main', () => {
@@ -35,11 +33,11 @@ describe('Main', () => {
     render(<Main />)
     screen.getByRole('button', {name: /post/i})
   })
-  it('calls history.push when clicking post button', () => {
+  it('calls navigate when clicking post button', () => {
     render(<Main />)
     const postButton = screen.getByRole('button', {name: /post/i})
     userEvent.click(postButton)
-    expect(mockHistory.push).toBeCalledWith('/post-form')
+    expect(mockNavigate).toBeCalledWith('/post-form')
   })
   it('renders heading', () => {
     render(<Main />)
